@@ -16,7 +16,7 @@ export default function MealDetailScreen() {
     }, [id, meals]);
 
     const handleDelete = () => {
-        removeMeal(id as string);
+        removeMeal(id);
         router.push('/main');
     };
 
