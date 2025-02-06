@@ -11,13 +11,13 @@ export default function AddMealScreen() {
     const [results, setResults] = useState<any[]>([]);
     const [selectedMeal, setSelectedMeal] = useState<any | null>(null);
 
-    // Fonction de recherche
+
     const onSearch = async () => {
         const data = await searchFood(query);
         if (data?.hints) setResults(data.hints);
     };
 
-    // Ajouter le repas sélectionné
+
     const onAddMeal = () => {
         if (selectedMeal) {
             addMeal({

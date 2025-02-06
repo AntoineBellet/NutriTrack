@@ -21,7 +21,7 @@ const MealsContext = createContext<MealsContextType | undefined>(undefined);
 export const MealsProvider = ({ children }: { children: ReactNode }) => {
     const [meals, setMeals] = useState<Meal[]>([]);
 
-    // Charger les repas depuis le stockage local
+
     useEffect(() => {
         const loadMeals = async () => {
             try {
