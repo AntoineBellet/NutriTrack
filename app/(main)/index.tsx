@@ -3,6 +3,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import {View, Text, StyleSheet, Button, FlatList, Pressable} from "react-native";
 import React, { useState, useEffect } from 'react';
 import { useMeals } from '../../context/MealContext';
+import BottomNavbar from '../../components/BottomNavBar';
 
 
 interface Meal {
@@ -39,7 +40,7 @@ const HomeScreen = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <View style={styles.item}>
-                        <Pressable onPress={() => router.push(`/main/${item.foodId}`)}>
+                        <Pressable onPress={() => router.push(`/${item.foodId}`)}>
                             <Text style={styles.itemText}>{item.label}</Text>
                             <Text style={styles.itemCalories}>Calories : {item.nutrients.ENERC_KCAL}</Text>
                         </Pressable>
@@ -47,9 +48,7 @@ const HomeScreen = () => {
                     </View>
                 )}
             />
-            <Button title="Ajouter un repas" onPress={() => router.push('/add')} />
-
-            <Button title="Sign Out" onPress={() => signOut()} />
+            <BottomNavbar />
         </View>
     );
 };

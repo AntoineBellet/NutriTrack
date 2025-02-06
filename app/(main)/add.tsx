@@ -11,13 +11,13 @@ export default function AddMealScreen() {
     const [results, setResults] = useState<any[]>([]);
     const [selectedMeal, setSelectedMeal] = useState<any | null>(null);
 
-    // Fonction de recherche
+
     const onSearch = async () => {
         const data = await searchFood(query);
         if (data?.hints) setResults(data.hints);
     };
 
-    // Ajouter le repas sélectionné
+
     const onAddMeal = () => {
         if (selectedMeal) {
             addMeal({
@@ -26,7 +26,7 @@ export default function AddMealScreen() {
                 foodId: selectedMeal.food.foodId,
                 nutrients: selectedMeal.food.nutrients,
             });
-            router.push('/main');
+            router.push('/');
         }
     };
 
@@ -51,7 +51,6 @@ export default function AddMealScreen() {
                     </Pressable>
                 )}
             />
-            <Button title="Scanner un QR Code" onPress={() => router.push('/main/camera')} />
             {selectedMeal && <Button title="Valider" onPress={onAddMeal} />}
         </View>
     );

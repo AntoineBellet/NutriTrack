@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8020b4ce-63a8-4628-8629-b86595b990d5" name="Changes" comment="api 2 + async storage">
+    <list default="true" id="8020b4ce-63a8-4628-8629-b86595b990d5" name="Changes" comment="api 3 + supprimer repas">
+      <change afterPath="$PROJECT_DIR$/components/BottomNavBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.expo/types/router.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/.expo/types/router.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(main)/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(main)/[id].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(main)/add.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(main)/add.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(main)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(main)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/context/MealContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/MealContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(main)/profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(main)/profile.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +58,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\spyne\Documents\Cesi CDA\React Native\tp-note\components" />
       <recent name="C:\Users\spyne\Documents\Cesi CDA\React Native\tp-note\app" />
       <recent name="C:\Users\spyne\Documents\Cesi CDA\React Native\tp-note" />
     </key>
@@ -75,7 +78,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738829968341</updated>
-      <workItem from="1738829969459" duration="19171000" />
+      <workItem from="1738829969459" duration="20881000" />
     </task>
     <task id="LOCAL-00001" summary="Clerk...">
       <option name="closed" value="true" />
@@ -109,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738849595981</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="api 3 + supprimer repas">
+      <option name="closed" value="true" />
+      <created>1738851531482</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1738851531482</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +157,7 @@
     <MESSAGE value="Navigation" />
     <MESSAGE value="api 1" />
     <MESSAGE value="api 2 + async storage" />
-    <option name="LAST_COMMIT_MESSAGE" value="api 2 + async storage" />
+    <MESSAGE value="api 3 + supprimer repas" />
+    <option name="LAST_COMMIT_MESSAGE" value="api 3 + supprimer repas" />
   </component>
 </project>
