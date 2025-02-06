@@ -13,6 +13,7 @@ interface Meal {
 interface MealsContextType {
     meals: Meal[];
     addMeal: (meal: Meal) => void;
+    removeMeal: (meal: Meal) => void;
 }
 
 const MealsContext = createContext<MealsContextType | undefined>(undefined);
@@ -49,10 +50,18 @@ export const MealsProvider = ({ children }: { children: ReactNode }) => {
             console.error('Erreur lors de l\'enregistrement des repas :', error);
         }
     };
+    const removeMeal = async (id: string) => {
+        const updatedMeals = meals.filter((meal) => meal.id !== id);
+        setMeals(updatedMeals);
+
+        // Mise à jour dans AsyncStorage
+        await AsyncStorage.setItem('meals', JSON.stringify(updatedMeals));
+    };
+
 
 
     return (
-        <MealsContext.Provider value={{ meals, addMeal }}>
+        <MealsContext.Provider value={{ meals, addMeal, removeMeal }}>
             {children}
         </MealsContext.Provider>
     );
@@ -65,3 +74,16 @@ export const useMeals = () => {
     }
     return context;
 };
+
+export async function getMealById(id: string) {
+    try {
+        const storedMeals = await AsyncStorage.getItem('meals');
+        if (storedMeals) {
+            const meals = JSON.parse(storedMeals);
+            return meals.find((meal: Meal) => meal.id === id) || null;
+        }
+    } catch (error) {
+        console.error('Erreur lors de la récupération du repas :', error);
+    }
+    return null;
+}

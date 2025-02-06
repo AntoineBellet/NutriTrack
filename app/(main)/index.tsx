@@ -16,8 +16,12 @@ const HomeScreen = () => {
 
     const router = useRouter();
 
-    const { meals } = useMeals();
+    const { meals, removeMeal } = useMeals();
     const { addedMeal } = useLocalSearchParams();
+
+    const onDelete = (id: string) => {
+        removeMeal(id);
+    };
 
     useEffect(() => {
         if (addedMeal) {
@@ -34,14 +38,16 @@ const HomeScreen = () => {
                 data={meals}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <Pressable onPress={() => router.push(`/${item.foodId}`)}>
-                        <Text>{item.label}</Text>
-                    </Pressable>
+                    <View style={styles.item}>
+                        <Pressable onPress={() => router.push(`/main/${item.foodId}`)}>
+                            <Text style={styles.itemText}>{item.label}</Text>
+                            <Text style={styles.itemCalories}>Calories : {item.nutrients.ENERC_KCAL}</Text>
+                        </Pressable>
+                        <Button title="Supprimer" onPress={() => onDelete(item.id)} />
+                    </View>
                 )}
             />
-            <Pressable onPress={() => router.push('/add')}>
-                <Text>Ajouter un repas</Text>
-            </Pressable>
+            <Button title="Ajouter un repas" onPress={() => router.push('/add')} />
 
             <Button title="Sign Out" onPress={() => signOut()} />
         </View>

@@ -1,40 +1,44 @@
 import { useLocalSearchParams } from 'expo-router';
 import { View, Text, StyleSheet } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { getFoodDetails } from '../api/edamam';
+import { getMealById } from '../../context/MealContext';
 
 export default function MealDetailScreen() {
     const { id } = useLocalSearchParams();
-    const [mealDetails, setMealDetails] = useState<any | null>(null);
+    const [meal, setMeal] = useState<any | null>(null);
 
     useEffect(() => {
-        const fetchMealDetails = async () => {
+        const fetchMeal = async () => {
             if (id) {
-                const data = await getFoodDetails(id as string);
-                if (data) {
-                    setMealDetails(data);
-                }
+                const mealData = await getMealById(id as string);
+                setMeal(mealData);
             }
         };
 
-        fetchMealDetails();
+        fetchMeal();
     }, [id]);
 
-    if (!mealDetails) {
-        return <Text style={styles.errorText}>Repas introuvable {id}</Text>;
+    if (!meal) {
+        return <Text style={styles.errorText}>Repas introuvable</Text>;
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{mealDetails.ingredients[0]?.text}</Text>
-            <Text style={styles.description}>Calories : {mealDetails.totalNutrients.ENERC_KCAL.quantity}</Text>
+            <Text style={styles.title}>{meal.label}</Text>
+            <Text style={styles.description}>Calories : {meal.nutrients.ENERC_KCAL}</Text>
+            <Text style={styles.ingredientsTitle}>Ingrédients :</Text>
+            {meal.ingredients?.map((ingredient: string, index: number) => (
+                <Text key={index} style={styles.ingredient}>{ingredient}</Text>
+            ))}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, padding: 24, justifyContent: 'center', backgroundColor: '#fff' },
+    container: { flex: 1, padding: 24, backgroundColor: '#fff' },
     title: { fontSize: 28, fontWeight: '700', marginBottom: 16 },
     description: { fontSize: 16, marginBottom: 8 },
+    ingredientsTitle: { fontSize: 18, fontWeight: '600', marginTop: 16 },
+    ingredient: { fontSize: 16, color: '#333' },
     errorText: { fontSize: 18, color: 'red' },
 });
