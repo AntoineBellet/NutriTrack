@@ -1,7 +1,7 @@
 import { useAuth } from "@clerk/clerk-expo";
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import {View, Text, StyleSheet, Button, FlatList, Pressable} from "react-native";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 interface Meal {
@@ -15,26 +15,34 @@ const HomeScreen = () => {
 
     const router = useRouter();
 
-    const [meals, setMeals] = useState<Meal[]>([
-        {id: '1', name: 'Salade César', date: '2025-02-06'},
-        {id: '2', name: 'Poulet rôti', date: '2025-02-05'},
-    ]);
+    const { addedMeal } = useLocalSearchParams();
+    const [meals, setMeals] = useState<any[]>([]);
+
+    useEffect(() => {
+        if (addedMeal) {
+            console.log('Repas reçu :', addedMeal);
+            const meal = JSON.parse(decodeURIComponent(addedMeal as string));
+            setMeals((prevMeals) => [...prevMeals, meal]);
+        }
+    }, [addedMeal]);
+
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Mes repas</Text>
             <FlatList
                 data={meals}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
-                    <Pressable
-                        style={styles.item}
-                        onPress={() => router.push(`/${item.id}`)}>
-                        <Text style={styles.itemText}>{item.name}</Text>
-                        <Text style={styles.itemDate}>{item.date}</Text>
+                    <Pressable onPress={() => router.push(`/main/${item.foodId || item.id}`)}>
+                        <Text style={styles.itemText}>{item.label}</Text>
                     </Pressable>
                 )}
+
             />
+            <Pressable onPress={() => router.push('/add')}>
+                <Text>Ajouter un repas</Text>
+            </Pressable>
 
             <Button title="Sign Out" onPress={() => signOut()} />
         </View>

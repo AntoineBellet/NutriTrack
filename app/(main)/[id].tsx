@@ -1,53 +1,38 @@
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { useRouter } from 'expo-router';
-import React, { useState, useEffect } from 'react';
 import { useLocalSearchParams } from 'expo-router';
-
-
-
-interface Meal {
-    id: string;
-    name: string;
-    description: string;
-    calories: number;
-    date: string;
-}
-
-// Exemple de données statiques (temporaire)
-const exampleMeals: Record<string, Meal> = {
-    '1': {
-        id: '1',
-        name: 'Salade César',
-        description: 'Une salade classique avec poulet, croûtons et parmesan.',
-        calories: 350,
-        date: '2025-02-06',
-    },
-    '2': {
-        id: '2',
-        name: 'Poulet rôti',
-        description: 'Poulet rôti avec pommes de terre et légumes.',
-        calories: 600,
-        date: '2025-02-05',
-    },
-};
+import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { getFoodDetails } from '../api/edamam';
 
 export default function MealDetailScreen() {
     const { id } = useLocalSearchParams();
-    const router = useRouter();
-    const [meal, setMeal] = useState<Meal | null>(null);
+    const [meal, setMeal] = useState<any | null>(null);
 
     useEffect(() => {
-        // Charger les données du repas à partir de l'id
-        if (id && exampleMeals[id as string]) {
-            setMeal(exampleMeals[id as string]);
-        }
+        console.log('ID reçu dans [id].tsx :', id);
+    }, [id]);
+
+
+    useEffect(() => {
+        const fetchMealDetails = async () => {
+            const data = await getFoodDetails(id as string);
+            if (data && data.hints.length > 0) {
+                const foodDetails = data.hints[0].food;
+                setMeal({
+                    name: foodDetails.label,
+                    description: foodDetails.category,
+                    calories: foodDetails.nutrients.ENERC_KCAL,
+                    ingredients: foodDetails.foodContentsLabel?.split(', ') || [],
+                });
+            }
+        };
+
+        fetchMealDetails();
     }, [id]);
 
     if (!meal) {
         return (
             <View style={styles.container}>
-                <Text style={styles.errorText}>Repas introuvable {id}</Text>
-                <Button title="Retour" onPress={() => router.back()} />
+                <Text style={styles.errorText}>Repas introuvable</Text>
             </View>
         );
     }
@@ -57,8 +42,12 @@ export default function MealDetailScreen() {
             <Text style={styles.title}>{meal.name}</Text>
             <Text style={styles.description}>{meal.description}</Text>
             <Text style={styles.calories}>Calories : {meal.calories}</Text>
-            <Text style={styles.date}>Date : {meal.date}</Text>
-            <Button title="Retour" onPress={() => router.back()} />
+            <Text style={styles.ingredientsTitle}>Ingrédients :</Text>
+            <FlatList
+                data={meal.ingredients}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => <Text style={styles.ingredient}>{item}</Text>}
+            />
         </View>
     );
 }
@@ -66,10 +55,9 @@ export default function MealDetailScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         padding: 24,
         justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: '#fff',
     },
     title: {
         fontSize: 28,
@@ -84,13 +72,17 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 8,
     },
-    date: {
-        fontSize: 14,
-        color: '#888',
+    ingredientsTitle: {
+        fontSize: 18,
+        fontWeight: '600',
+        marginTop: 16,
+    },
+    ingredient: {
+        fontSize: 16,
+        color: '#333',
     },
     errorText: {
         fontSize: 18,
         color: 'red',
-        marginBottom: 16,
     },
 });
