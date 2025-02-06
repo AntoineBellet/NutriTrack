@@ -31,33 +31,33 @@ export default function SignInScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Connexion</Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>Connexion</Text>
 
-      <TextInput
-        style={styles.input}
-        autoCapitalize="none"
-        value={emailAddress}
-        placeholder="Entrez votre email"
-        onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-      />
-      <TextInput
-        style={styles.input}
-        value={password}
-        placeholder="Entrez votre mot de passe"
-        secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}
-      />
-      <Pressable style={styles.button} onPress={onSignInPress}>
-        <Text style={styles.buttonText}>Se connecter</Text>
-      </Pressable>
-      <View style={styles.signUpContainer}>
-        <Text style={styles.signUpText}>Vous n'avez pas de compte ?</Text>
-        <Link href="/sign-up">
-          <Text style={styles.signUpLink}>Inscription</Text>
-        </Link>
+        <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            value={emailAddress}
+            placeholder="Entrez votre email"
+            onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+        />
+        <TextInput
+            style={styles.input}
+            value={password}
+            placeholder="Entrez votre mot de passe"
+            secureTextEntry={true}
+            onChangeText={(password) => setPassword(password)}
+        />
+        <Pressable style={styles.button} onPress={onSignInPress}>
+          <Text style={styles.buttonText}>Se connecter</Text>
+        </Pressable>
+        <View style={styles.signUpContainer}>
+          <Text style={styles.signUpText}>Vous n'avez pas de compte ?</Text>
+          <Link href="/sign-up">
+            <Text style={styles.signUpLink}>Inscription</Text>
+          </Link>
+        </View>
       </View>
-    </View>
   );
 }
 

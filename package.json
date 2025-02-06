@@ -6,10 +6,11 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "clear": "expo start --clear"
   },
   "dependencies": {
-    "@clerk/clerk-expo": "^2.7.3",
+    "@clerk/clerk-expo": "^2.6.3",
     "@clerk/types": "^4.45.0",
     "expo": "~52.0.28",
     "expo-constants": "~17.0.5",

@@ -57,47 +57,47 @@ export default function SignUpScreen() {
 
   if (pendingVerification) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Verifier votre email</Text>
-        <TextInput
-          style={styles.input}
-          value={code}
-          placeholder="Entrez le code de vérification"
-          onChangeText={(code) => setCode(code)}
-        />
-        <Button title="Vérifier" onPress={onVerifyPress} />
-      </View>
+        <View style={styles.container}>
+          <Text style={styles.title}>Verifier votre email</Text>
+          <TextInput
+              style={styles.input}
+              value={code}
+              placeholder="Entrez le code de vérification"
+              onChangeText={(code) => setCode(code)}
+          />
+          <Button title="Vérifier" onPress={onVerifyPress} />
+        </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Créer un compte</Text>
-      <TextInput
-        style={styles.input}
-        autoCapitalize="none"
-        value={emailAddress}
-        placeholder="Entrez votre email"
-        onChangeText={(email) => setEmailAddress(email)}
-      />
-      <TextInput
-        style={styles.input}
-        value={password}
-        placeholder="Entrez votre mot de passe"
-        secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}
-      />
-      <Pressable style={styles.button} onPress={onSignUpPress}>
-        <Text style={styles.buttonText}>Continuer</Text>
-      </Pressable>
+      <View style={styles.container}>
+        <Text style={styles.title}>Créer un compte</Text>
+        <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            value={emailAddress}
+            placeholder="Entrez votre email"
+            onChangeText={(email) => setEmailAddress(email)}
+        />
+        <TextInput
+            style={styles.input}
+            value={password}
+            placeholder="Entrez votre mot de passe"
+            secureTextEntry={true}
+            onChangeText={(password) => setPassword(password)}
+        />
+        <Pressable style={styles.button} onPress={onSignUpPress}>
+          <Text style={styles.buttonText}>Continuer</Text>
+        </Pressable>
 
-      <View style={styles.signInContainer}>
-        <Text style={styles.signInText}>Vous avez déjà un compte ?</Text>
-        <Link href="/sign-in">
-          <Text style={styles.signInLink}>Connexion</Text>
-        </Link>
+        <View style={styles.signInContainer}>
+          <Text style={styles.signInText}>Vous avez déjà un compte ?</Text>
+          <Link href="/sign-in">
+            <Text style={styles.signInLink}>Connexion</Text>
+          </Link>
+        </View>
       </View>
-    </View>
   );
 }
 
