@@ -17,6 +17,7 @@ export async function searchFood(query: string) {
 }
 export async function getFoodDetails(foodId: string) {
     const url = `https://api.edamam.com/api/food-database/v2/nutrients?app_id=${APP_ID}&app_key=${APP_KEY}`;
+
     try {
         const response = await axios.post(url, {
             ingredients: [{ foodId }],
@@ -27,6 +28,7 @@ export async function getFoodDetails(foodId: string) {
         return null;
     }
 }
+
 
 
 

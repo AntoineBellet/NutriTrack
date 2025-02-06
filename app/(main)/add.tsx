@@ -2,12 +2,15 @@ import { View, TextInput, Button, Text, FlatList, Pressable, StyleSheet } from '
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { searchFood } from '../api/edamam';
+import { useMeals } from '../../context/MealContext';
 
 export default function AddMealScreen() {
     const router = useRouter();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<any[]>([]);
     const [selectedMeal, setSelectedMeal] = useState<any | null>(null);
+
+    const { addMeal } = useMeals();
 
     const onSearch = async () => {
         const data = await searchFood(query);
@@ -18,7 +21,14 @@ export default function AddMealScreen() {
 
     const onAddMeal = () => {
         if (selectedMeal) {
+            addMeal({
+                id: selectedMeal.food.foodId,
+                label: selectedMeal.food.label,
+                foodId: selectedMeal.food.foodId,
+                nutrients: selectedMeal.food.nutrients,
+            });
             router.push(`/main/${selectedMeal.food.foodId}`);
+
         }
     };
 

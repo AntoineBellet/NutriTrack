@@ -1,5 +1,6 @@
 import { useAuth } from "@clerk/clerk-expo";
 import { Redirect, Stack } from "expo-router";
+import { MealsProvider } from '../../context/MealContext';
 
 export default function AuthRoutesLayout() {
   const { isSignedIn } = useAuth();
@@ -9,8 +10,11 @@ export default function AuthRoutesLayout() {
   }
 
   return (
-      <Stack>
-        <Stack.Screen name="index" options={{ title: "Home" }} />
-      </Stack>
+      <MealsProvider>
+          <Stack>
+              <Stack.Screen name="index" options={{ title: "Home" }} />
+          </Stack>
+      </MealsProvider>
+
   );
 }

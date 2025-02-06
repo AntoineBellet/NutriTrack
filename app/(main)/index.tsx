@@ -2,6 +2,7 @@ import { useAuth } from "@clerk/clerk-expo";
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import {View, Text, StyleSheet, Button, FlatList, Pressable} from "react-native";
 import React, { useState, useEffect } from 'react';
+import { useMeals } from '../../context/MealContext';
 
 
 interface Meal {
@@ -15,14 +16,13 @@ const HomeScreen = () => {
 
     const router = useRouter();
 
+    const { meals } = useMeals();
     const { addedMeal } = useLocalSearchParams();
-    const [meals, setMeals] = useState<any[]>([]);
 
     useEffect(() => {
         if (addedMeal) {
             console.log('Repas reçu :', addedMeal);
             const meal = JSON.parse(decodeURIComponent(addedMeal as string));
-            setMeals((prevMeals) => [...prevMeals, meal]);
         }
     }, [addedMeal]);
 
@@ -32,13 +32,12 @@ const HomeScreen = () => {
             <Text style={styles.title}>Mes repas</Text>
             <FlatList
                 data={meals}
-                keyExtractor={(item, index) => index.toString()}
+                keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <Pressable onPress={() => router.push(`/main/${item.foodId || item.id}`)}>
-                        <Text style={styles.itemText}>{item.label}</Text>
+                    <Pressable onPress={() => router.push(`/${item.foodId}`)}>
+                        <Text>{item.label}</Text>
                     </Pressable>
                 )}
-
             />
             <Pressable onPress={() => router.push('/add')}>
                 <Text>Ajouter un repas</Text>
